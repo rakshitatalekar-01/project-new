@@ -1,7 +1,14 @@
-import Login from "./Login";
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/db');
 
-function App() {
-  return <Login />;
-}
+const app = express();
+connectDB();
 
-export default App;
+app.use(cors());
+app.use(express.json());
+
+app.use('/api/v1/auth', require('./routes/authRoutes'));
+app.use('/api/v1/tasks', require('./routes/taskRoutes'));
+
+module.exports = app;
